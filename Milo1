@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+public class Milo {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("What operation do you want to perform?");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Average");
+        System.out.print("Enter your choice (1-4): ");
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1 -> add(sc);
+            case 2 -> sub(sc);
+            case 3 -> multiply(sc);
+            case 4 -> average(sc);
+            default -> System.out.println("Invalid choice!");5
+        }
+
+        sc.close();
+    }
+
+    public static void add(Scanner sc) {
+        System.out.print("Enter the first number (x): ");
+        int x = sc.nextInt();
+        System.out.print("Enter the second number (y): ");
+        int y = sc.nextInt();
+        int sum = x + y;
+        System.out.println("Sum: " + sum);
+    }
+
+    public static void sub(Scanner sc) {
+        System.out.print("Enter the first number (x): ");
+        int x = sc.nextInt();
+        System.out.print("Enter the second number (y): ");
+        int y = sc.nextInt();
+        int sub = x - y;
+        System.out.println("Difference: " + sub);
+    }
+
+    public static void multiply(Scanner sc) {
+        System.out.print("Enter the first number (x): ");
+        int x = sc.nextInt();
+        System.out.print("Enter the second number (y): ");
+        int y = sc.nextInt();
+        int product = x * y;
+        System.out.println("Product: " + product);
+    }
+
+    public static void average(Scanner sc) {
+        System.out.print("Enter the first number (x): ");
+        int x = sc.nextInt();
+        System.out.print("Enter the second number (y): ");
+        int y = sc.nextInt();
+        double average = (x + y) / 2.0; 
+        System.out.println("Average: " + average);
+    }
+}
