@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class Milo  {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the first number (x): ");
+        int x = sc.nextInt();
+
+        System.out.print("Enter the second number (y): ");
+        int y = sc.nextInt();
+
+        System.out.println("What operation do you want to perform?");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Average");
+        System.out.print("Enter your choice (1-4): ");
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1 -> add(x, y);
+            case 2 -> sub(x, y);
+            case 3 -> multiply(x, y);
+            case 4 -> average(x, y);
+            default -> System.out.println("Invalid choice!");
+        }
+
+        sc.close();
+    }
+
+    public static void add(int x, int y) {
+        int sum = x + y;
+        System.out.println("Sum: " + sum);
+    }
+
+    public static void sub(int x, int y) {
+        int sub = x - y;
+        System.out.println("Difference: " + sub);
+    }
+
+    public static void multiply(int x, int y) {
+        int product = x * y;
+        System.out.println("Product: " + product);
+    }
+
+    public static void average(int x, int y) {
+        int sum = x + y;
+        double average = sum / 2.0;
+        System.out.println("Average: " + average);
+    }
+}
