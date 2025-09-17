@@ -1,0 +1,19 @@
+import javax.swing.JOptionPane;
+public class Capuras1 {
+    public static void main(String[] args) throws Exception {
+        String input = JOptionPane.showInputDialog("Enter an amount:");
+        double amount = Double.parseDouble(input);
+
+        double[] denominations = {1000, 500, 200, 100, 50, 20, 10, 5, 1, 0.25, 0.10, 0.05};
+        
+        String result = "Amount: " + amount + "\nDenomination:\n";
+
+        for (double denom : denominations) {
+            long count = (long)(amount / denom);
+            result += denom + " : " + count + "\n";
+        }
+
+        JOptionPane.showMessageDialog(null, result);
+    }
+}
+
