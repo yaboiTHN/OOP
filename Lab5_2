@@ -1,0 +1,45 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.capuras1;
+
+/**
+ *
+ * @author Student
+ */
+import javax.swing.JOptionPane;
+public class Capuras1  {
+
+    
+    public static void main(String[] args) {
+        int num1 = Integer.parseInt(JOptionPane.showInputDialog("Enter the first number:"));
+        int num2 = Integer.parseInt(JOptionPane.showInputDialog("Enter the second number:"));
+        String operation = JOptionPane.showInputDialog("What operator you want to perform\nadd\nsub\nmultiply\naverage");
+        switch (operation){
+            case "add" -> add(num1,num2);
+            case "sub" -> sub(num1,num2);
+            case "multiply" -> multiply(num1,num2);
+            case "average" -> average(num1,num2);
+        }
+    }
+    
+    public static void add(int num1, int num2){
+        int sum = num1+num2;
+        JOptionPane.showMessageDialog(null, "Sum:"+ sum);
+    }
+    public static void sub(int num1, int num2){
+        int sub = (num1-num2);
+        JOptionPane.showMessageDialog(null, "Diff:"+ sub);
+    }
+    public static void multiply(int num1, int num2){
+        int multiply = (num1*num2);
+        JOptionPane.showMessageDialog(null, "Product:"+ multiply);
+    }
+    public static void average(int num1, int num2){
+        int sum = (num1+num2);
+        int numbers[] = {num1,num2};
+        double average = sum/numbers.length;
+        JOptionPane.showMessageDialog(null, "Average:"+ average);
+    }
+}
