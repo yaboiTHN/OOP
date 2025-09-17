@@ -1,0 +1,44 @@
+import javax.swing.JOptionPane;
+public class Capuras {
+    public static void main(String[] args) throws Exception {
+        String[] months = {
+            "", "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        };
+
+        boolean repeat = true;
+
+        while (repeat) {
+
+            int month = Integer.parseInt(
+                JOptionPane.showInputDialog("Enter month (1-12):")
+            );
+
+            int day = Integer.parseInt(
+                JOptionPane.showInputDialog("Enter day (1-31):")
+            );
+
+            int year = Integer.parseInt(
+                JOptionPane.showInputDialog("Enter year (2 or 4 digits):")
+            );
+
+            if (year < 100) {
+                year += 2000;
+            }
+
+            String formattedDate = "Date: " + months[month] + " " + day + ", " + year;
+            JOptionPane.showMessageDialog(null, formattedDate);
+
+            int option = JOptionPane.showConfirmDialog(
+                null, 
+                "Do you want to enter another date?", 
+                "Repeat?", 
+                JOptionPane.YES_NO_OPTION
+            );
+
+            if (option != JOptionPane.YES_OPTION) {
+                repeat = false;
+            }
+        }
+    }
+}
