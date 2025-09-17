@@ -1,0 +1,40 @@
+import javax.swing.JOptionPane;
+public class Capuras {
+
+    public static void main(String[] args) {
+        String operation = JOptionPane.showInputDialog("What operator you want to perform\nadd\nsub\nmultiply\naverage");
+        switch (operation){
+            case "add" -> add();
+            case "sub" -> sub();
+            case "multiply" -> multiply();
+            case "average" -> average();
+        }
+    }
+    
+    public static void add(){
+        int num1 = Integer.parseInt(JOptionPane.showInputDialog("Enter the first number:"));
+        int num2 = Integer.parseInt(JOptionPane.showInputDialog("Enter the second number:"));
+        int sum = (num1+num2);
+        JOptionPane.showMessageDialog(null, "Sum:"+ sum);
+    }
+    public static void sub(){
+        int num1 = Integer.parseInt(JOptionPane.showInputDialog("Enter the first number:"));
+        int num2 = Integer.parseInt(JOptionPane.showInputDialog("Enter the second number:"));
+        int sub = (num1-num2);
+        JOptionPane.showMessageDialog(null, "Diff:"+ sub);
+    }
+    public static void multiply(){
+        int num1 = Integer.parseInt(JOptionPane.showInputDialog("Enter the first number:"));
+        int num2 = Integer.parseInt(JOptionPane.showInputDialog("Enter the second number:"));
+        int multiply = (num1*num2);
+        JOptionPane.showMessageDialog(null, "Product:"+ multiply);
+    }
+    public static void average(){
+        int num1 = Integer.parseInt(JOptionPane.showInputDialog("Enter the first number:"));
+        int num2 = Integer.parseInt(JOptionPane.showInputDialog("Enter the second number:"));
+        int sum = (num1+num2);
+        int numbers[] = {num1,num2};
+        double average = sum/numbers.length;
+        JOptionPane.showMessageDialog(null, "Average:"+ average);
+    }
+}
