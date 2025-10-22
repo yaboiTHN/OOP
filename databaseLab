@@ -1,0 +1,63 @@
+CREATE DATABASE CollegeStudent;
+USE CollegeStudent;
+
+CREATE TABLE Course (
+	Course_Id INT NOT NULL,
+    Course_Name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Course_Id)
+);
+
+INSERT INTO Course (Course_Id,Course_Name) VALUES
+(1, 'Computer Science'),
+(2, 'Information Technology'),
+(3, 'Mechanical Engineering');
+
+CREATE TABLE Students (
+	RollNo INT NOT NULL,
+    Student_Name VARCHAR(50) NOT NULL,
+    Address VARCHAR(50),
+    Age INT NOT NULL,
+    PRIMARY KEY (RollNo)
+);
+
+INSERT INTO Students (RollNo, Student_Name, Address, Age) VALUES
+(1, 'Josh', 'CDO', 18),
+(2, 'Kian', 'Bukidnon', 20),
+(4, 'Ranz', 'Ozamiz', 22),
+(5, 'Shamah', 'Villanueva', 20);
+
+CREATE TABLE Hostel (
+    StNo INT NOT NULL,
+    Student_Name VARCHAR(50) NOT NULL,
+    Address VARCHAR(50),
+    Age INT NOT NULL,
+    PRIMARY KEY (StNo)
+);
+
+INSERT INTO Hostel (StNo, Student_Name, Address, Age) VALUES
+(1, 'Josh', 'CDO', 18),
+(2, 'Ella', 'Tagoloan', 20),
+(3, 'Emmy', 'Zamboanga', 21);
+
+SELECT * 
+FROM Students, Course 
+WHERE Course_Id = 1;
+
+SELECT StNo, Student_Name
+FROM Hostel;
+
+SELECT *
+FROM Students
+CROSS JOIN Course;
+
+SELECT *
+FROM Students
+UNION
+SELECT*
+FROM Hostel;
+
+SELECT *
+FROM Students
+WHERE Student_Name NOT IN (SELECT Student_Name FROM Hostel);
+
+RENAME TABLE Students TO StudentRecords;
