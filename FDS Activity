@@ -1,18 +1,14 @@
 CREATE DATABASE Group10;
 USE Group10;
 
--- ===============================
--- TABLE 1: ENROLLMENTS (R)
--- ===============================
 CREATE TABLE Enrollments (
     StudentID INT NOT NULL,
     CourseCode VARCHAR(5) NOT NULL,
-    EnrollmentDate DATE DEFAULT (CURRENT_DATE),   -- ✅ DEFAULT constraint
-    Email VARCHAR(100) UNIQUE,                    -- ✅ UNIQUE constraint (each student email must be unique)
+    EnrollmentDate DATE DEFAULT (CURRENT_DATE),   
+    Email VARCHAR(100) UNIQUE,              
     CONSTRAINT PK_Enrollments PRIMARY KEY (StudentID, CourseCode)
 );
 
--- ✅ Updated Enrollments Data
 INSERT INTO Enrollments (StudentID, CourseCode, Email) VALUES
 (1, 'a111', 'student1@email.com'),
 (1, 'b222', 'student2@email.com'),
@@ -20,75 +16,58 @@ INSERT INTO Enrollments (StudentID, CourseCode, Email) VALUES
 (2, 'b222', 'student4@email.com'),
 (3, 'x999', 'student5@email.com'); 
 
--- ===============================
--- TABLE 2: COURSES (S)
--- ===============================
 CREATE TABLE Courses (
     CourseCode VARCHAR(5) NOT NULL,
     Credits INT NOT NULL CHECK (Credits > 0),
-    CourseName VARCHAR(50) UNIQUE,               -- ✅ UNIQUE constraint (each course name must be distinct)
-    Department VARCHAR(30) DEFAULT 'General',    -- ✅ DEFAULT constraint
+    CourseName VARCHAR(50) UNIQUE,           
+    Department VARCHAR(30) DEFAULT 'General',  
     PRIMARY KEY (CourseCode)
 );
 
--- ✅ Updated Courses
 INSERT INTO Courses (CourseCode, Credits, CourseName, Department) VALUES
 ('a111', 10, 'Math Basics', 'Mathematics'),
 ('b222', 20, 'Physics I', 'Science'),
 ('c333', 15, 'Chemistry Intro', 'Science'),
 ('d444', 30, 'Programming 101', 'Computer Science'),
-('e555', 25, 'Database Systems', DEFAULT);  -- ✅ Uses DEFAULT value 'General'
+('e555', 25, 'Database Systems', DEFAULT);
 
--- ===============================
--- RELATIONAL ALGEBRA OPERATIONS
--- ===============================
-
--- ✅ INTERSECTION Example
 SELECT *
 FROM Enrollments
 WHERE CourseCode IN (SELECT CourseCode FROM Courses);
 
--- ✅ DIVISION-like Example (Students taking both 'a111' and 'b222')
 SELECT StudentID
 FROM Enrollments
 GROUP BY StudentID
 HAVING COUNT(DISTINCT CourseCode) = 2;
 
--- ✅ INNER JOIN
 SELECT Enrollments.StudentID, Enrollments.CourseCode, Courses.Credits
 FROM Enrollments
 INNER JOIN Courses ON Enrollments.CourseCode = Courses.CourseCode;
 
--- ✅ CONDITIONAL (θ JOIN / WHERE Credits > 15)
 SELECT Enrollments.StudentID, Enrollments.CourseCode, Courses.Credits
 FROM Enrollments
 JOIN Courses ON Enrollments.CourseCode = Courses.CourseCode
 WHERE Courses.Credits > 15;
 
--- ✅ EQUIJOIN
 SELECT Enrollments.StudentID, Enrollments.CourseCode, Courses.Credits
 FROM Enrollments
 JOIN Courses 
 ON Enrollments.CourseCode = Courses.CourseCode;
 
--- ✅ NATURAL JOIN
 SELECT *
 FROM Enrollments
 JOIN Courses;
 
--- ✅ RIGHT OUTER JOIN
 SELECT *
 FROM Enrollments
 RIGHT OUTER JOIN Courses
 ON Enrollments.CourseCode = Courses.CourseCode;
 
--- ✅ LEFT OUTER JOIN (Student 3 should show NULL in COURSES side)
 SELECT *
 FROM Enrollments
 LEFT OUTER JOIN Courses
 ON Enrollments.CourseCode = Courses.CourseCode;
 
--- ✅ FULL OUTER JOIN (using UNION of LEFT + RIGHT)
 SELECT *
 FROM Enrollments
 LEFT JOIN Courses
@@ -99,11 +78,31 @@ FROM Enrollments
 RIGHT JOIN Courses
 ON Enrollments.CourseCode = Courses.CourseCode;
 
--- Alter table example (add and remove)
-ALTER TABLE Enrollments
-ADD RequiredCourses varchar(50) DEFAULT 'None';   -- ✅ With default value
-DESCRIBE Enrollments;
 
 ALTER TABLE Enrollments
-DROP COLUMN RequiredCourses;
+ADD CONSTRAINT fk_course
+FOREIGN KEY (CourseCode)
+REFERENCES Courses(CourseCode)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+SELECT 
+    CONSTRAINT_NAME,
+    TABLE_NAME,
+    COLUMN_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Enrollments'
+  AND REFERENCED_TABLE_NAME IS NOT NULL;
+
+
+
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM Enrollments
+WHERE CourseCode = 'x999';
+
+SET SQL_SAFE_UPDATES = 1; 
+
 
